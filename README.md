@@ -46,7 +46,7 @@ npx flamtos
 
 Or
 
-````bash
+```bash
 bunx flamtos
 ```
 
@@ -150,8 +150,3 @@ src/
 # Run tests once
 bun run test
 ```
-
-## License
-
-MIT
-````
