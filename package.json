@@ -1,0 +1,52 @@
+{
+    "name": "flamtos",
+    "version": "0.1.0",
+    "description": "CLI for doing smart renames.",
+    "source": "src/index.ts",
+    "main": "dist/main.js",
+    "bin": {
+        "flamtos": "./dist/index.js"
+    },
+    "type": "module",
+    "scripts": {
+        "start": "bun run src/index.ts",
+        "build": "NODE_ENV=production bun build src/index.ts --outdir dist --target node --packages=external",
+        "compile": "NODE_ENV=production bun build src/index.ts --target node --compile --outfile dist/flamtos",
+        "test": "bun test --coverage"
+    },
+    "files": [
+        "dist/index.js"
+    ],
+    "keywords": [
+        "nodejs",
+        "rename",
+        "renaming"
+    ],
+    "author": "Ragaeeb Haq",
+    "license": "MIT",
+    "dependencies": {
+        "cli-welcome": "^3.0.1"
+    },
+    "engines": {
+        "bun": ">=1.0.40"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.22.0",
+        "@types/bun": "^1.2.4",
+        "@types/node": "^22.13.10",
+        "@vitest/coverage-v8": "^3.0.8",
+        "@vitest/eslint-plugin": "^1.1.36",
+        "eslint": "^9.22.0",
+        "eslint-config-prettier": "^10.1.1",
+        "eslint-plugin-perfectionist": "^4.10.1",
+        "eslint-plugin-prettier": "^5.2.3",
+        "globals": "^16.0.0",
+        "prettier": "^3.5.3",
+        "semantic-release": "^24.2.3",
+        "typescript-eslint": "^8.26.0",
+        "vitest": "^3.0.8"
+    },
+    "peerDependencies": {
+        "typescript": "^5.8.2"
+    }
+}
