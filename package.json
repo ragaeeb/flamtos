@@ -15,7 +15,8 @@
         "test": "bun test --coverage"
     },
     "files": [
-        "dist/index.js"
+        "dist/index.js",
+        "dist/main.js"
     ],
     "keywords": [
         "nodejs",
