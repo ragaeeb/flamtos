@@ -1,7 +1,7 @@
 import { promises as fs } from 'node:fs';
 import process from 'node:process';
 
-import { DATE_FORMATS, type DirectorySummary, type ProcessOptions } from '../types/index.js';
+import { DATE_FORMATS, type DateFormat, type DirectorySummary, type ProcessOptions } from '../types/index.js';
 import { showHelp } from '../utils/help.js';
 import { processFile } from './fileProcessor.js';
 
@@ -35,7 +35,7 @@ export const processDirectory = async (dirPath: string, options: ProcessOptions)
         // Process all files
         for (const file of files) {
             const result = await processFile(dirPath, file, {
-                dateFormat: options.dateFormat as any,
+                dateFormat: options.dateFormat as DateFormat,
                 doWrite: options.doWrite,
                 locale: options.locale,
                 template: options.template,
@@ -73,8 +73,10 @@ export const processDirectory = async (dirPath: string, options: ProcessOptions)
         );
 
         return summary;
-    } catch (error: any) {
-        console.error(`Error processing directory ${dirPath}: ${error.message}`);
+    } catch (error: unknown) {
+        console.error(
+            `Error processing directory ${dirPath}: ${error instanceof Error ? error.message : 'Unknown error'}`,
+        );
         return {
             errors: 1,
             files: [],

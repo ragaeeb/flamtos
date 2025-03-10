@@ -71,12 +71,12 @@ export const processFile = async (
             newName: newFileName,
             original: file,
         };
-    } catch (error: any) {
+    } catch (error: unknown) {
         return {
             action: 'error',
             newName: '',
             original: file,
-            reason: error.message,
+            reason: error instanceof Error ? error.message : 'Unknown error',
         };
     }
 };
