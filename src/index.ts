@@ -1,8 +1,7 @@
 #!/usr/bin/env bun
-import welcome from 'cli-welcome';
 import { parseArgs } from 'node:util';
-
-import packageJson from '../package.json' assert { type: 'json' };
+import welcome from 'cli-welcome';
+import packageJson from '../package.json' with { type: 'json' };
 import { processDirectory } from './core/processDirectory.js';
 import { showHelp } from './utils/help.js';
 

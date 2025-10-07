@@ -148,5 +148,5 @@ src/
 
 ```bash
 # Run tests once
-bun run test
+bun test
 ```

@@ -1,13 +1,13 @@
+import { afterEach, beforeEach, describe, expect, it } from 'bun:test';
 import { promises as fs } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
 import { processFile } from './fileProcessor';
 
 describe('fileProcessor', () => {
     // Create a temporary directory for test files
-    const tempDir = path.join(os.tmpdir(), 'flamtos-tests-' + Date.now());
+    const tempDir = path.join(os.tmpdir(), `flamtos-tests-${Date.now()}`);
 
     beforeEach(async () => {
         // Create the test directory before each test
