@@ -1,4 +1,4 @@
-import { TemplateVars } from '../types/index.js';
+import type { TemplateVars } from '@/types/index.js';
 
 export const applyTemplate = (template: string, vars: TemplateVars): string => {
     let result = template;

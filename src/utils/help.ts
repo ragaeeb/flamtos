@@ -1,4 +1,4 @@
-import { DATE_FORMATS } from '../types/index.js';
+import { DATE_FORMATS } from '@/types/index.js';
 
 export const showHelp = (): void => {
     console.log(`

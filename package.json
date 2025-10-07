@@ -1,53 +1,45 @@
 {
-    "name": "flamtos",
-    "version": "0.1.0",
-    "description": "CLI for doing smart renames.",
-    "source": "src/index.ts",
-    "main": "dist/main.js",
+    "author": "Ragaeeb Haq",
     "bin": {
-        "flamtos": "./dist/index.js"
+        "flamtos": "dist/index.js"
     },
-    "type": "module",
-    "scripts": {
-        "start": "bun run src/index.ts",
-        "build": "NODE_ENV=production bun build src/index.ts --outdir dist --target node --packages=external",
-        "compile": "NODE_ENV=production bun build src/index.ts --target node --compile --outfile dist/flamtos",
-        "test": "vitest run --coverage"
+    "bugs": {
+        "url": "https://github.com/ragaeeb/flamtos/issues"
+    },
+    "dependencies": {
+        "cli-welcome": "^3.0.1",
+        "music-metadata": "^11.9.0"
+    },
+    "description": "CLI for interacting with Telegram platform.",
+    "devDependencies": {
+        "@biomejs/biome": "^2.2.5",
+        "@types/bun": "^1.2.23",
+        "@types/node": "^24.7.0",
+        "semantic-release": "^24.2.9",
+        "tsup": "^8.5.0",
+        "typescript": "^5.9.3"
+    },
+    "engines": {
+        "bun": ">=1.2.22"
     },
     "files": [
-        "dist/index.js",
-        "dist/main.js"
+        "dist/*"
     ],
     "keywords": [
         "nodejs",
-        "rename",
-        "renaming"
+        "telegram"
     ],
-    "author": "Ragaeeb Haq",
     "license": "MIT",
-    "dependencies": {
-        "cli-welcome": "^3.0.1"
+    "main": "dist/index.js",
+    "name": "flamtos",
+    "scripts": {
+        "build": "tsup",
+        "format": "biome format --write .",
+        "lint": "biome check --write .",
+        "lint:ci": "biome ci",
+        "start": "bun run src/index.ts"
     },
-    "engines": {
-        "bun": ">=1.0.40"
-    },
-    "devDependencies": {
-        "@eslint/js": "^9.22.0",
-        "@types/bun": "^1.2.4",
-        "@types/node": "^22.13.10",
-        "@vitest/coverage-v8": "^3.0.8",
-        "@vitest/eslint-plugin": "^1.1.36",
-        "eslint": "^9.22.0",
-        "eslint-config-prettier": "^10.1.1",
-        "eslint-plugin-perfectionist": "^4.10.1",
-        "eslint-plugin-prettier": "^5.2.3",
-        "globals": "^16.0.0",
-        "prettier": "^3.5.3",
-        "semantic-release": "^24.2.3",
-        "typescript-eslint": "^8.26.0",
-        "vitest": "^3.0.8"
-    },
-    "peerDependencies": {
-        "typescript": "^5.8.2"
-    }
+    "source": "src/index.ts",
+    "type": "module",
+    "version": "1.0.0"
 }

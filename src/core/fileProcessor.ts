@@ -1,9 +1,9 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
-
-import { DateFormat, FileSummary, TemplateVars } from '../types/index.js';
-import { formatDate } from '../utils/date.js';
-import { applyTemplate } from '../utils/template.js';
+import { parseFile } from 'music-metadata';
+import type { DateFormat, FileSummary, TemplateVars } from '@/types/index.js';
+import { formatDate } from '@/utils/date.js';
+import { applyTemplate } from '@/utils/template.js';
 
 export const processFile = async (
     dirPath: string,
@@ -30,7 +30,13 @@ export const processFile = async (
             };
         }
 
-        const fileDate = options.useModifiedTime ? stats.mtime : stats.birthtime;
+        const metadata = await parseFile(filePath);
+        let fileDate = options.useModifiedTime ? metadata.format.modificationTime : metadata.format.creationTime;
+
+        if (!fileDate) {
+            fileDate = options.useModifiedTime ? stats.mtime : stats.birthtime;
+        }
+
         const formattedDate = formatDate(fileDate, options.dateFormat, options.locale);
 
         const parsedPath = path.parse(filePath);
