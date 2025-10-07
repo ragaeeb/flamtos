@@ -4,16 +4,15 @@
     "": {
       "name": "flamtos",
       "dependencies": {
-        "cli-welcome": "latest",
-        "music-metadata": "latest",
+        "cli-welcome": "^3.0.1",
+        "music-metadata": "^11.9.0",
       },
       "devDependencies": {
-        "@biomejs/biome": "latest",
-        "@types/bun": "latest",
-        "@types/node": "latest",
-        "semantic-release": "latest",
-        "tsup": "latest",
-        "typescript": "latest",
+        "@biomejs/biome": "^2.2.5",
+        "@types/bun": "^1.2.23",
+        "@types/node": "^24.7.0",
+        "semantic-release": "^24.2.9",
+        "tsup": "^8.5.0",
       },
     },
   },
