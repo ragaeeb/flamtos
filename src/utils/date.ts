@@ -1,5 +1,14 @@
 import type { DateFormat } from '@/types/index.js';
 
+/**
+ * Format a {@link Date} instance according to the provided format token and locale.
+ *
+ * @param date - The date that should be formatted.
+ * @param format - Identifier describing the target date format.
+ * @param locale - Locale used when formatting month names.
+ *
+ * @returns The formatted date string.
+ */
 export const formatDate = (date: Date, format: DateFormat, locale: string): string => {
     const day = date.getDate().toString().padStart(2, '0');
     const month = (date.getMonth() + 1).toString().padStart(2, '0');

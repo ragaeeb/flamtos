@@ -12,12 +12,12 @@ A flexible CLI tool for renaming files based on their creation or modification d
 
 ## Features
 
-- Rename files based on creation or modification date
-- Multiple date formatting options
-- Flexible template system for output filenames
-- Support for locale-specific date formatting
-- Dry run mode to preview changes before applying them
-- Organization into subdirectories based on date
+- Rename media files based on creation or modification date with a single command.
+- Use one of nine built-in date formatting presets or supply your own locale for localized month names.
+- Apply rich filename templates that support subdirectory creation and repeated variables.
+- Preview changes with a dry-run mode before committing to disk writes.
+- Programmatically access the renaming pipeline through exported helpers for custom workflows.
+- Bundled with a lightweight `tsdown` build pipeline that outputs ready-to-publish ESM and declaration files.
 
 ## Installation
 
@@ -144,9 +144,24 @@ src/
 └── index.ts                 # Main entry point
 ```
 
+## Library API
+
+In addition to the CLI, `flamtos` exposes several utilities for scripting scenarios:
+
+- `processDirectory(dir, options, overrides?)` &rarr; Traverse a directory, rename eligible files, and return a detailed summary.
+- `processFile(dir, file, options)` &rarr; Generate the renamed filename for a single file and optionally write it.
+- `formatDate(date, format, locale)` &rarr; Convert dates into one of the supported presets.
+- `applyTemplate(template, vars)` &rarr; Interpolate template variables into a target filename.
+- `showHelp()` &rarr; Print the CLI usage guide.
+
+All related TypeScript interfaces (`ProcessOptions`, `DirectorySummary`, `FileSummary`, `TemplateVars`, and `DateFormat`) are exported from the package for convenience.
+
 ### Running Tests
 
 ```bash
-# Run tests once
+# Run unit tests
 bun test
+
+# Build distributable output with tsdown
+bun run build
 ```

@@ -5,25 +5,65 @@ import { DATE_FORMATS, type DateFormat, type DirectorySummary, type ProcessOptio
 import { showHelp } from '../utils/help.js';
 import { processFile } from './fileProcessor.js';
 
-export const processDirectory = async (dirPath: string, options: ProcessOptions): Promise<DirectorySummary> => {
+export interface ProcessDirectoryDependencies {
+    exit: typeof process.exit;
+    log: typeof console.log;
+    processFile: typeof processFile;
+    readdir: typeof fs.readdir;
+    showHelp: typeof showHelp;
+    table: typeof console.table;
+    error: typeof console.error;
+}
+
+const defaultDependencies: ProcessDirectoryDependencies = {
+    exit: process.exit.bind(process),
+    error: console.error.bind(console),
+    log: console.log.bind(console),
+    processFile,
+    readdir: fs.readdir.bind(fs),
+    showHelp,
+    table: console.table.bind(console),
+};
+
+/**
+ * Process all files within a directory by delegating to {@link processFile} and aggregating the
+ * results into a {@link DirectorySummary}. The function also validates CLI options, prints
+ * diagnostic output, and handles any unexpected errors gracefully.
+ *
+ * @param dirPath - Path of the directory to traverse.
+ * @param options - Options controlling how files should be processed.
+ * @param dependencies - Optional dependency overrides to facilitate testing.
+ *
+ * @returns A summary describing how many files were renamed, skipped, or encountered errors.
+ */
+export const processDirectory = async (
+    dirPath: string,
+    options: ProcessOptions,
+    dependencies: Partial<ProcessDirectoryDependencies> = {},
+): Promise<DirectorySummary> => {
+    const { exit, log, processFile: processFileDependency, readdir, showHelp: showHelpDependency, table, error: logError } = {
+        ...defaultDependencies,
+        ...dependencies,
+    } satisfies ProcessDirectoryDependencies;
+
     try {
-        const files = await fs.readdir(dirPath);
+        const files = await readdir(dirPath);
 
         if (!DATE_FORMATS[options.dateFormat as keyof typeof DATE_FORMATS]) {
-            console.error(`Error: Unknown date format "${options.dateFormat}"`);
-            showHelp();
-            process.exit(1);
+            logError(`Error: Unknown date format "${options.dateFormat}"`);
+            showHelpDependency();
+            exit(1);
         }
 
-        console.log(`Processing directory: ${dirPath}`);
-        console.log(`Mode: ${options.doWrite ? 'Write' : 'Dry Run'}`);
-        console.log(`Using: ${options.useModifiedTime ? 'Modified Time' : 'Creation Time'}`);
-        console.log(
+        log(`Processing directory: ${dirPath}`);
+        log(`Mode: ${options.doWrite ? 'Write' : 'Dry Run'}`);
+        log(`Using: ${options.useModifiedTime ? 'Modified Time' : 'Creation Time'}`);
+        log(
             `Format: ${options.dateFormat} (${DATE_FORMATS[options.dateFormat as keyof typeof DATE_FORMATS].example})`,
         );
-        console.log(`Locale: ${options.locale}`);
-        console.log(`Template: ${options.template}`);
-        console.log('───────────────────────────────────────────────────────');
+        log(`Locale: ${options.locale}`);
+        log(`Template: ${options.template}`);
+        log('───────────────────────────────────────────────────────');
 
         const summary: DirectorySummary = {
             errors: 0,
@@ -34,7 +74,7 @@ export const processDirectory = async (dirPath: string, options: ProcessOptions)
 
         // Process all files
         for (const file of files) {
-            const result = await processFile(dirPath, file, {
+            const result = await processFileDependency(dirPath, file, {
                 dateFormat: options.dateFormat as DateFormat,
                 doWrite: options.doWrite,
                 locale: options.locale,
@@ -56,7 +96,7 @@ export const processDirectory = async (dirPath: string, options: ProcessOptions)
 
         // Display the file processing results as a table
         if (summary.files.length > 0) {
-            console.table(
+            table(
                 summary.files.map((file) => ({
                     Action: file.action,
                     NewName: file.newName,
@@ -66,15 +106,15 @@ export const processDirectory = async (dirPath: string, options: ProcessOptions)
             );
         }
 
-        console.log('───────────────────────────────────────────────────────');
-        console.log(
+        log('───────────────────────────────────────────────────────');
+        log(
             `Summary: ${summary.renamed} files ${options.doWrite ? 'renamed' : 'would be renamed'}, ` +
                 `${summary.skipped} skipped, ${summary.errors} errors`,
         );
 
         return summary;
     } catch (error: unknown) {
-        console.error(
+        logError(
             `Error processing directory ${dirPath}: ${error instanceof Error ? error.message : 'Unknown error'}`,
         );
         return {
