@@ -1,4 +1,3 @@
-#!/usr/bin/env bun
 import { parseArgs } from 'node:util';
 import welcome from 'cli-welcome';
 import packageJson from '../package.json' with { type: 'json' };
