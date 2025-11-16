@@ -5,6 +5,21 @@ import type { DateFormat, FileSummary, TemplateVars } from '@/types/index.js';
 import { formatDate } from '@/utils/date.js';
 import { applyTemplate } from '@/utils/template.js';
 
+/**
+ * Process a single file in the provided directory and optionally rename it according to the
+ * supplied template and date formatting preferences.
+ *
+ * @param dirPath - Absolute or relative path of the directory containing the file.
+ * @param file - Name of the file to process.
+ * @param options - Behavioural options for how the file should be processed.
+ * @param options.dateFormat - Desired date format identifier.
+ * @param options.doWrite - Whether to persist the rename operation to disk.
+ * @param options.locale - Locale to use when formatting the date string.
+ * @param options.template - Filename template that will be applied to the processed file.
+ * @param options.useModifiedTime - Whether to use the file's modification timestamp instead of creation time.
+ *
+ * @returns A {@link FileSummary} describing the action that was taken for the file.
+ */
 export const processFile = async (
     dirPath: string,
     file: string,

@@ -1,5 +1,8 @@
 import { DATE_FORMATS } from '@/types/index.js';
 
+/**
+ * Print the CLI usage instructions and available date formats to STDOUT.
+ */
 export const showHelp = (): void => {
     console.log(`
 Usage: flamtos [options] <directory> [<directory2> ...]
