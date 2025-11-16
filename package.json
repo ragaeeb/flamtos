@@ -1,7 +1,7 @@
 {
     "author": "Ragaeeb Haq",
     "bin": {
-        "flamtos": "dist/index.js"
+        "flamtos": "dist/index.mjs"
     },
     "bugs": {
         "url": "https://github.com/ragaeeb/flamtos/issues"
@@ -32,7 +32,7 @@
         "automation"
     ],
     "license": "MIT",
-    "main": "dist/index.js",
+    "main": "dist/index.mjs",
     "name": "flamtos",
     "scripts": {
         "build": "tsdown --config tsdown.config.ts",
@@ -43,6 +43,6 @@
     },
     "source": "src/index.ts",
     "type": "module",
-    "types": "dist/index.d.ts",
-    "version": "1.1.2"
+    "types": "dist/index.d.mts",
+    "version": "1.1.3"
 }

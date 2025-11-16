@@ -8,7 +8,6 @@ export default defineConfig({
     dts: true,
     entry: ['src/index.ts'],
     external: ['cli-welcome', 'music-metadata'],
-    fixedExtension: true,
     format: 'esm',
     minify: false,
     outDir: 'dist',
