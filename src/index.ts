@@ -5,13 +5,13 @@ import packageJson from '../package.json' with { type: 'json' };
 import { processDirectory } from './core/processDirectory.js';
 import { showHelp } from './utils/help.js';
 
-export { processDirectory } from './core/processDirectory.js';
 export { processFile } from './core/fileProcessor.js';
-export { formatDate } from './utils/date.js';
-export { applyTemplate } from './utils/template.js';
-export { showHelp } from './utils/help.js';
-export type { DateFormat, DirectorySummary, FileSummary, ProcessOptions, TemplateVars } from './types/index.js';
 export type { ProcessDirectoryDependencies } from './core/processDirectory.js';
+export { processDirectory } from './core/processDirectory.js';
+export type { DateFormat, DirectorySummary, FileSummary, ProcessOptions, TemplateVars } from './types/index.js';
+export { formatDate } from './utils/date.js';
+export { showHelp } from './utils/help.js';
+export { applyTemplate } from './utils/template.js';
 
 /**
  * CLI entry point. Parses command line arguments, renders the welcome banner, and executes the
